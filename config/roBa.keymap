@@ -8,6 +8,12 @@
     quick-tap-ms = <0>;
 };
 
+/* マウス移動の速度設定（ここを上書き定義します） */
+&mmv {
+    time-to-max-speed-ms = <0>;
+    acceleration-exponent = <0>;
+};
+
 &trackball {
     automouse-layer = <4>;
     scroll-layers = <5>;
@@ -43,28 +49,6 @@
         };
     };
 
-    behaviors {
-        /* * ここを修正: compatible を zmk,behavior-mmv にし、
-         * 必須パラメータ（acceleration）を追記しました。
-         */
-        mmv_custom: mmv_custom {
-            compatible = "zmk,behavior-mmv";
-            label = "MMV_CUSTOM";
-            #binding-cells = <1>;
-            x-alignment = <0>;
-            y-alignment = <0>;
-            time-to-max-speed-ms = <0>;
-            acceleration-exponent = <0>;
-        };
-
-        lt_to_layer_0: lt_to_layer_0 {
-            compatible = "zmk,behavior-hold-tap";
-            bindings = <&mo>, <&to_layer_0>;
-            #binding-cells = <2>;
-            tapping-term-ms = <200>;
-        };
-    };
-
     macros {
         to_layer_0: to_layer_0 {
             compatible = "zmk,behavior-macro-one-param";
@@ -72,13 +56,22 @@
             bindings = <&to 0 &macro_param_1to1 &kp MACRO_PLACEHOLDER>;
         };
 
-        /* マクロ内でも mmv_custom を呼び出します */
+        /* 標準の &mmv を使うように修正しました */
         Jiggler_test: Jiggler_test {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings =
                 <&macro_wait_time 4000>,
-                <&mmv_custom MOVE_X(600) &mmv_custom MOVE_Y(-600) &mmv_custom MOVE_X(-600) &mmv_custom MOVE_Y(600)>;
+                <&mmv MOVE_X(600) &mmv MOVE_Y(-600) &mmv MOVE_X(-600) &mmv MOVE_Y(600)>;
+        };
+    };
+
+    behaviors {
+        lt_to_layer_0: lt_to_layer_0 {
+            compatible = "zmk,behavior-hold-tap";
+            bindings = <&mo>, <&to_layer_0>;
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
         };
     };
 
