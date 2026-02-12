@@ -43,7 +43,7 @@
             wait-ms = <30>;
             tap-ms = <30>;
             bindings =
-                <&mmv MOVE_X(-100)>,
+                <&macro_wait_time 4000>, <&mmv MOVE_X(-100)>,  // 0分後：右
                 <&macro_wait_time 240000>, <&mmv MOVE_X(100)>,  // 4分後：右
                 <&macro_wait_time 240000>, <&mmv MOVE_X(-100)>, // 8分後：左
                 <&macro_wait_time 240000>, <&mmv MOVE_X(100)>,  // 12分後
