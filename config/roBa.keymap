@@ -56,23 +56,23 @@
             bindings = <&to 0 &macro_param_1to1 &kp MACRO_PLACEHOLDER>;
         };
 
-        /* 【テスト用】2秒おきに右・左を繰り返すマクロ */
+        /* 【テスト用】2秒おきに左右へ100px移動 */
         Jiggler_test: Jiggler_test {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             wait-ms = <30>;
             tap-ms = <30>;
             bindings =
-                <&macro_wait_time 2000>, <&mmv MOVE_X(20)>,  // 2秒後：右
-                <&macro_wait_time 2000>, <&mmv MOVE_X(-20)>, // 4秒後：左
-                <&macro_wait_time 2000>, <&mmv MOVE_X(20)>,  // 6秒後：右
-                <&macro_wait_time 2000>, <&mmv MOVE_X(-20)>, // 8秒後：左
-                <&macro_wait_time 2000>, <&mmv MOVE_X(20)>,  // 10秒後：右
-                <&macro_wait_time 2000>, <&mmv MOVE_X(-20)>, // 12秒後：左
-                <&macro_wait_time 2000>, <&mmv MOVE_X(20)>,  // 14秒後：右
-                <&macro_wait_time 2000>, <&mmv MOVE_X(-20)>, // 16秒後：左
-                <&macro_wait_time 2000>, <&mmv MOVE_X(20)>,  // 18秒後：右
-                <&macro_wait_time 2000>, <&mmv MOVE_X(-20)>; // 20秒後：左
+                <&macro_wait_time 2000>, <&mmv MOVE_X(100)>,  // 2秒後：右へ100px
+                <&macro_wait_time 2000>, <&mmv MOVE_X(-100)>, // 4秒後：左へ100px（戻る）
+                <&macro_wait_time 2000>, <&mmv MOVE_X(100)>,
+                <&macro_wait_time 2000>, <&mmv MOVE_X(-100)>,
+                <&macro_wait_time 2000>, <&mmv MOVE_X(100)>,
+                <&macro_wait_time 2000>, <&mmv MOVE_X(-100)>,
+                <&macro_wait_time 2000>, <&mmv MOVE_X(100)>,
+                <&macro_wait_time 2000>, <&mmv MOVE_X(-100)>,
+                <&macro_wait_time 2000>, <&mmv MOVE_X(100)>,
+                <&macro_wait_time 2000>, <&mmv MOVE_X(-100)>;
         };
     };
 
@@ -114,45 +114,3 @@
 &kp F6   &kp F7   &kp F8   &kp F9   &kp F10  &trans       &kp ASTERISK  &kp MINUS       &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp N0
 &kp F1   &kp F2   &kp F3   &kp F4   &kp F5   &trans       &kp SLASH     &kp UNDERSCORE  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &trans
 &trans   &trans   &trans   &trans   &trans   &trans       &trans        &trans                                                      &trans
-            >;
-        };
-
-        ARROW {
-            bindings = <
-&trans  &kp LCTRL         &trans  &kp LA(LEFT)  &kp LA(RIGHT)                         &kp HOME      &kp LC(A)     &kp UP       &kp LC(E)       &kp END
-&trans  &kp LEFT_SHIFT    &trans  &mkp MB1      &mkp MB2       &mkp MB3       &trans  &kp LEFT      &kp LEFT      &kp DOWN     &kp RIGHT       &trans
-&trans  &kp LEFT_COMMAND  &trans  &mkp MB4      &mkp MB5       &mkp MB3       &trans  &kp LC(LEFT)  &kp LC(LEFT)  &kp LC(UP)   &kp LC(RIGHT)  &trans
-&trans  &trans            &trans  &trans        &trans         &trans         &trans  &trans                                                     &trans
-            >;
-
-            sensor-bindings = <&inc_dec_kp LC(PAGE_UP) LC(PAGE_DOWN)>;
-        };
-
-        MOUSE {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans                           &trans  &kp LC(A)  &mkp MB3  &kp LS(E)  &trans
-&trans  &trans  &trans  &trans  &trans  &trans       &trans  &trans  &mkp MB1   &mkp MB3  &mkp MB2   &trans
-&trans  &trans  &trans  &trans  &trans  &trans       &trans  &trans  &mkp MB4   &mkp MB3  &mkp MB5   &trans
-&trans  &trans  &trans  &trans  &trans  &trans       &trans  &trans                                  &trans
-            >;
-        };
-
-        SCROLL {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans                           &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans       &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans       &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans       &trans  &trans                                  &trans
-            >;
-        };
-
-        layer_6 {
-            bindings = <
-&trans  &trans        &trans        &trans             &trans                                  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
-&trans  &trans        &trans        &kp LS(LA(LC(R)))  &trans  &kp LG(LC(Q))      &trans       &trans        &trans        &trans        &trans        &trans
-&trans  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3       &trans  &trans             &bootloader  &trans        &trans        &trans        &trans        &bt BT_CLR
-&trans  &trans        &trans        &trans             &trans  &trans             &trans       &trans                                                   &bt BT_CLR_ALL
-            >;
-        };
-    };
-};
