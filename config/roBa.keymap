@@ -76,6 +76,11 @@
     };
 
     behaviors {
+        mmv: mouse_move {
+            compatible = "zmk,behavior-mouse-move";
+            #binding-cells = <1>;
+        };
+
         lt_to_layer_0: lt_to_layer_0 {
             compatible = "zmk,behavior-hold-tap";
             label = "LAYER_TAP_TO_0";
