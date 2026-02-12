@@ -73,6 +73,17 @@
 
             label = "JIGGLER";
         };
+
+        new_macro: new_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+                <&kp T &kp E &kp S &kp T &kp N1 &kp N2 &kp N3>,
+                <&macro_wait_time 4000>,
+                <&kp LS(P) &kp LS(P) &kp LS(P) &kp LS(P)>;
+
+            label = "NEW_MACRO";
+        };
     };
 
     behaviors {
@@ -105,7 +116,7 @@
 &kp LS(NUMBER_1)  &kp LS(NUMBER_2)  &kp LS(NUMBER_3)  &kp LS(NUMBER_4)   &kp LS(N5)                            &kp PLUS        &kp PIPE              &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp EQUAL
 &kp SEMICOLON     &kp COLON         &kp SQT           &kp DOUBLE_QUOTES  &kp GRAVE   &trans      &kp ASTERISK  &kp MINUS       &kp SLASH             &kp LEFT_BRACE        &kp RIGHT_BRACE        &trans
 &kp LS(NUMBER_6)  &kp LS(N7)        &kp LS(N8)        &kp LS(N9)         &kp TILDE   &trans      &kp SLASH     &kp UNDERSCORE  &kp NON_US_BACKSLASH  &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &trans
-&Jiggler_test     &kp T             &trans            &trans             &trans      &trans      &trans        &trans                                                                             &trans
+&Jiggler_test     &trans            &new_macro        &trans             &trans      &trans      &trans        &trans                                                                             &trans
             >;
         };
 
