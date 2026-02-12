@@ -8,7 +8,7 @@
     quick-tap-ms = <0>;
 };
 
-/* マウス移動の速度設定（ここを上書き定義します） */
+/* マウス移動の速度設定 */
 &mmv {
     time-to-max-speed-ms = <0>;
     acceleration-exponent = <0>;
@@ -56,13 +56,23 @@
             bindings = <&to 0 &macro_param_1to1 &kp MACRO_PLACEHOLDER>;
         };
 
-        /* 標準の &mmv を使うように修正しました */
+        /* 【テスト用】2秒おきに右・左を繰り返すマクロ */
         Jiggler_test: Jiggler_test {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
             bindings =
-                <&macro_wait_time 4000>,
-                <&mmv MOVE_X(600) &mmv MOVE_Y(-600) &mmv MOVE_X(-600) &mmv MOVE_Y(600)>;
+                <&macro_wait_time 2000>, <&mmv MOVE_X(20)>,  // 2秒後：右
+                <&macro_wait_time 2000>, <&mmv MOVE_X(-20)>, // 4秒後：左
+                <&macro_wait_time 2000>, <&mmv MOVE_X(20)>,  // 6秒後：右
+                <&macro_wait_time 2000>, <&mmv MOVE_X(-20)>, // 8秒後：左
+                <&macro_wait_time 2000>, <&mmv MOVE_X(20)>,  // 10秒後：右
+                <&macro_wait_time 2000>, <&mmv MOVE_X(-20)>, // 12秒後：左
+                <&macro_wait_time 2000>, <&mmv MOVE_X(20)>,  // 14秒後：右
+                <&macro_wait_time 2000>, <&mmv MOVE_X(-20)>, // 16秒後：左
+                <&macro_wait_time 2000>, <&mmv MOVE_X(20)>,  // 18秒後：右
+                <&macro_wait_time 2000>, <&mmv MOVE_X(-20)>; // 20秒後：左
         };
     };
 
