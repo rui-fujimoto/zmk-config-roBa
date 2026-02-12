@@ -62,6 +62,17 @@
             bindings = <&to 0 &macro_param_1to1 &kp MACRO_PLACEHOLDER>;
             label = "TO_LAYER_0";
         };
+
+        Jiggler: Jiggler {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+                <&mmv MOVE_RIGHT &mmv MOVE_DOWN &mmv MOVE_LEFT &mmv MOVE_UP>,
+                <&macro_wait_time 4000>,
+                <&mmv MOVE_X(100) &mmv MOVE_Y(200)>;
+
+            label = "JIGGLER";
+        };
     };
 
     behaviors {
