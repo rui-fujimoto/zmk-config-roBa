@@ -8,6 +8,12 @@
     quick-tap-ms = <0>;
 };
 
+/* マウス移動の速度設定（ここを上書き定義します） */
+&mmv {
+    time-to-max-speed-ms = <0>;
+    acceleration-exponent = <0>;
+};
+
 &trackball {
     automouse-layer = <4>;
     scroll-layers = <5>;
@@ -16,11 +22,31 @@
 / {
     combos {
         compatible = "zmk,combos";
-        tab { bindings = <&kp TAB>; key-positions = <11 12>; };
-        shift_tab { bindings = <&kp LS(TAB)>; key-positions = <12 13>; };
-        muhennkann { bindings = <&to_layer_0 INT_MUHENKAN>; key-positions = <11 10>; };
-        double_quotation { bindings = <&kp DOUBLE_QUOTES>; key-positions = <20 21>; };
-        eq { bindings = <&kp EQUAL>; key-positions = <24 25>; };
+
+        tab {
+            bindings = <&kp TAB>;
+            key-positions = <11 12>;
+        };
+
+        shift_tab {
+            bindings = <&kp LS(TAB)>;
+            key-positions = <12 13>;
+        };
+
+        muhennkann {
+            bindings = <&to_layer_0 INT_MUHENKAN>;
+            key-positions = <11 10>;
+        };
+
+        double_quotation {
+            bindings = <&kp DOUBLE_QUOTES>;
+            key-positions = <20 21>;
+        };
+
+        eq {
+            bindings = <&kp EQUAL>;
+            key-positions = <24 25>;
+        };
     };
 
     macros {
@@ -28,14 +54,21 @@
             compatible = "zmk,behavior-macro-one-param";
             #binding-cells = <1>;
             bindings = <&to 0 &macro_param_1to1 &kp MACRO_PLACEHOLDER>;
-            label = "TO_LAYER_0";
+        };
+
+        /* 標準の &mmv を使うように修正しました */
+        Jiggler_test: Jiggler_test {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+                <&macro_wait_time 4000>,
+                <&mmv MOVE_X(600) &mmv MOVE_Y(-600) &mmv MOVE_X(-600) &mmv MOVE_Y(600)>;
         };
     };
 
     behaviors {
         lt_to_layer_0: lt_to_layer_0 {
             compatible = "zmk,behavior-hold-tap";
-            label = "LAYER_TAP_TO_0";
             bindings = <&mo>, <&to_layer_0>;
             #binding-cells = <2>;
             tapping-term-ms = <200>;
@@ -52,6 +85,7 @@
 &kp Z         &kp X         &kp C         &kp V      &kp B  &lt_to_layer_0 6 SEMICOLON       &lt_to_layer_0 4 SLASH  &kp N        &kp M  &kp COMMA  &kp DOT  &kp BACKSPACE
 &kp LEFT_ALT  &kp LEFT_WIN  &kp CAPSLOCK  &kp LCTRL  &mo 1  &kp LEFT_SHIFT                                         &kp RIGHT_COMMAND        &lt 2 SPACE                              &lt 5 ESCAPE
             >;
+
             sensor-bindings = <&inc_dec_kp PG_UP PAGE_DOWN>;
         };
 
@@ -60,7 +94,7 @@
 &kp LS(NUMBER_1)  &kp LS(NUMBER_2)  &kp LS(NUMBER_3)  &kp LS(NUMBER_4)   &kp LS(N5)                                   &kp PLUS        &kp PIPE              &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp EQUAL
 &kp SEMICOLON     &kp COLON         &kp SQT           &kp DOUBLE_QUOTES  &kp GRAVE   &trans       &kp ASTERISK  &kp MINUS       &kp SLASH              &kp LEFT_BRACE        &kp RIGHT_BRACE        &trans
 &kp LS(NUMBER_6)  &kp LS(N7)        &kp LS(N8)        &kp LS(N9)         &kp TILDE   &trans       &kp SLASH     &kp UNDERSCORE  &kp NON_US_BACKSLASH  &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &trans
-&trans            &trans            &trans            &trans             &trans      &trans       &trans        &trans                                                                              &trans
+&Jiggler_test     &trans            &trans            &trans             &trans      &trans       &trans        &trans                                                                              &trans
             >;
         };
 
@@ -80,6 +114,7 @@
 &trans  &kp LEFT_COMMAND  &trans  &mkp MB4      &mkp MB5       &mkp MB3       &trans  &kp LC(LEFT)  &kp LC(LEFT)  &kp LC(UP)   &kp LC(RIGHT)  &trans
 &trans  &trans            &trans  &trans        &trans         &trans         &trans  &trans                                                     &trans
             >;
+
             sensor-bindings = <&inc_dec_kp LC(PAGE_UP) LC(PAGE_DOWN)>;
         };
 
